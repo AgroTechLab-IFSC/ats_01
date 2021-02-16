@@ -50,32 +50,27 @@
 
 /**
  * \page rhf0m003_page RHF0M003
- * This UV Sensor is used for detecting the intensity of incident ultraviolet (UV) radiation. 
- * This form of electromagnetic radiation has shorter wavelengths than visible radiation. 
- * This module is based on the sensor UVM-30A, which has a wide spectral range of 200nm–370nm. 
- * The module outputs electrical signal which varies with the UV intensity.
+ * RHF0M003 LoRaWAN® Module is a low cost, low power and ultra-small size module, embedded with Semtech’s LoRa® propriety chip SX127x and 
+ * ST’s ultra-low power MCU STM32L07x. RHF0M003 LoraWAN® module is targeted application at wireless sensor network，AMR, wearable devices 
+ * and others IoT devices powered by battery which need low power consumption to extend the battery life.
  *  
- * Key features are listed below, hardware details can be found into [datasheet](../UVM30A_datasheet.pdf):
- * - Power supply 5V;
- * - Analogic interface;
+ * Key features are listed below:
+ * - Low Power Consumption: 1.4uA Sleep Current In WOR Mode;
+ * - Ultra Small Size: 14mm X 20mm
+ * - 18 Pins SMT Package;
+ * - Operating Frequency Band Option;
+ * - High Performance，Suitable For Long Range;
+ * - User-Friendly Interface LPUART / USART / I2C / USB 2×ADC 10×GPIOs;
+ * - Support Global LoRaWAN® Protocol;
  * 
- * UV index table:\n
- * Tension (mV) | Analog | UV Index
- * :----:|:----:| :----:
- * < 50 | < 10 | 0
- * 227 | 46 | 1
- * 318 | 65 | 2
- * 408 | 83 | 3
- * 503 | 103 | 4
- * 606 | 124 | 5
- * 696 | 142 | 6
- * 795 | 162 | 7
- * 881 | 180 | 8
- * 976 | 200 | 9
- * 1079 | 221 | 10
- * 1170+ | 240+ | 11+
+ * Documentation:\n
+ * - [Design guide v2.0](../datasheets/RHF0M003_design_guide_v2.0.pdf)
+ * - [Datasheet v1.2](../datasheets/RHF0M003_datasheet_v1.2.pdf)
+ * - [Product brief v2.1](../datasheets/RHF0M003_product_brief_v2.1.pdf)
+ * - [AT Command Specification v1.2](../datasheets/RHF0M003_at_command_spec_v1.2.pdf)
  * 
- * ![UVM-30A schematic connection](../uvm30a.png)
+ * ![RHF0M003 pinout 1](../rhf0m003_pinout1.png)
+ * ![RHF0M003 pinout 2](../rhf0m003_pinout2.png)
  */ 
 
 /**
@@ -194,27 +189,60 @@ void setup() {
   #endif
 
   // Setup and initialize DHT22 sensor
-  pinMode(DHT_PORT, INPUT);  
+  pinMode(DHT_PIN, INPUT);  
   #if (SERIAL_DEBUG == true)
     Serial.print(F("\n\tInitializing DHT sensor... "));
     Serial.flush();
   #endif
   dht.begin();
   #if (SERIAL_DEBUG == true)
-    Serial.print("[OK]");
+    Serial.print(F("[OK]"));
     Serial.flush();
   #endif
 
   // Initialize light sensor
   if (SERIAL_DEBUG) {
-    Serial.print("\n\tInitializing light sensor... ");
+    Serial.print(F("\n\tInitializing light sensor... "));
     Serial.flush();
   }
   lightSensor.begin();
   if (SERIAL_DEBUG) {
-    Serial.print("[OK]");
+    Serial.print(F("[OK]"));
     Serial.flush();
   }
+
+  // Setup LoRa module configuration
+  loraCfg.band = AU920;
+  loraCfg.op_class = A;
+  loraCfg.tx_power = dBm14;
+  loraCfg.uplink_dr = DR0;
+  loraCfg.chan0_freq = chan0_freq;
+  loraCfg.chan0_dr = DR0;
+  loraCfg.chan1_freq = chan1_freq;
+  loraCfg.chan1_dr = DR0;
+  loraCfg.rxwin2_freq = rxwin2_freq;
+  loraCfg.rxwin2_dr = DR8;
+  loraCfg.adr = OFF;
+  loraCfg.auth_mode = LWABP;
+//  loraCfg.auth_mode = LWOTAA;
+  loraCfg.dev_eui = dev_eui;
+  loraCfg.app_eui = app_eui;
+  loraCfg.repeat = repeat;
+  loraCfg.retry = retry;
+  loraCfg.dev_addr = dev_addr;
+  loraCfg.app_key = app_key;
+  loraCfg.apps_key = apps_key;
+  loraCfg.nwks_key = nwks_key;
+  loraCfg.debug = SERIAL_DEBUG;
+
+  // Initiate LoRa modem
+  // if (lora.initModem(loraCfg) == false) {
+  //   // Put station in ERROR mode
+  //   // Power on RGB LED during setup process
+  //   rgb_led.on(Color(255,0,0));
+  //   delay(error_reset_period);
+  //   setup();
+  // }
 
   // Power off builtin LED after setup process
   digitalWrite(LED_BUILTIN, LOW);
@@ -232,87 +260,20 @@ void loop() {
     Serial.print(F("\nReading sensors...."));
   #endif
 
-  // Reading air temperature
-  dht.temperature().getSensor(&dht_sensor);
-  dht.temperature().getEvent(&dht_sensor_event);
-  if ((isnan(dht_sensor_event.temperature) || (dht_sensor_event.temperature < -40.0f) ||
-      (dht_sensor_event.temperature > 80.0f))) {
-      sensorsValues.air_temperature = __FLT_MAX__;
-    #if (SERIAL_DEBUG == true)
-      Serial.print("\n\tError reading air temperature!!!");
-      Serial.flush();
-    #endif  
-  } else {
-    sensorsValues.air_temperature = dht_sensor_event.temperature;
-    #if (SERIAL_DEBUG == true)
-        Serial.print("\n\tAir temperature (in oC): ");
-        Serial.print(sensorsValues.air_temperature);        
-        Serial.flush();
-    #endif
-  }
+  // Get air temperature
+  sensorsData.air_temperature = getAirTemperatureInC();
 
-  // Reading air humidity
-  dht.humidity().getSensor(&dht_sensor);
-  dht.humidity().getEvent(&dht_sensor_event);
-  if ((isnan(dht_sensor_event.relative_humidity)) || (dht_sensor_event.relative_humidity < 0.0f) ||
-    (dht_sensor_event.relative_humidity > 100.0f)) {
-    sensorsValues.air_humidity = __FLT_MAX__;      
-    #if (SERIAL_DEBUG == true)
-      Serial.print("\n\tError reading air humidity!!!");
-      Serial.flush();
-    #endif  
-  } else {
-    sensorsValues.air_humidity = dht_sensor_event.relative_humidity;
-    #if (SERIAL_DEBUG == true)
-      Serial.print("\n\tAir humidity (in %): ");
-      Serial.print(sensorsValues.air_humidity);      
-      Serial.flush();
-    #endif
-  }
+  // Get air humidity
+  sensorsData.air_humidity = getAirHumidity();
 
-  uint16_t lux = lightSensor.readLightLevel();    
-  if ((isnan(lux)) || (lux < 0.0f) || (lux > 65535) ) {
-    sensorsValues.light = UINT16_MAX;
-    if (SERIAL_DEBUG == true) {
-      Serial.print("\n\tError reading light level!!!");
-      Serial.flush();
-    }  
-  } else {
-    sensorsValues.light = lux;
-    if (SERIAL_DEBUG == true) {
-      Serial.print("\n\tLuminosity (in LUX): ");  
-      Serial.print(sensorsValues.light);        
-      Serial.flush();
-    }
-  }
-  
-  // Get UV sensor value and compute in milivolts
-  //int uv_value = (analogRead(UVM30A_PORT) * (5.0 / 1023.0)) * 1000;
-  uint16_t uv_value = analogRead(UVM30A_PORT);
-  if (isnan(uv_value)) {
-    #if (SERIAL_DEBUG == true)
-      Serial.print("\n\tError reading UV radiation index!!!");
-      Serial.flush();
-    #endif
-  } else {
-    if (uv_value > 1170) {
-      sensorsValues.uv_index = 12;
-    } else {
-      for (int i = 0; i < 12; i++) {
-        if (uv_value <= uvIndexValue[i]) {
-          sensorsValues.uv_index = i;
-          break;
-        }
-      }
-    }
-    #if (SERIAL_DEBUG == true)
-      Serial.print("\n\tUV radiation (in UV index): ");
-      Serial.print(uv_value);
-      Serial.print(" => ");
-      Serial.print(sensorsValues.uv_index);
-      Serial.flush();
-    #endif
-  } 
+  // Get light in LUX
+  sensorsData.light = getLightInLux();
+
+  // Get UV index
+  sensorsData.uv_index = getUVIndex();
+
+  // Get battery voltage
+  sensorsData.battery_voltage = getBatteryVoltage();
 
   // Power off builtin LED after reading process
   digitalWrite(LED_BUILTIN, LOW);
@@ -347,3 +308,149 @@ void printInitInfo() {
   Serial.flush();
 }
 #endif
+
+/**
+ * @fn    getBatteryVoltage
+ * @brief Get battery voltage level.
+ * @return battery voltage.
+ */
+float getBatteryVoltage() {
+  int analogValue = 0;
+  float vout;
+  float battery_voltage;
+
+  // Read analog value using ADC 10 bits
+  analogValue = analogRead(VOLTAGE_SENSOR_PIN);
+
+  // Convert ADC value to voltage using factor 1:5
+  vout = (analogValue * 5.0) / 1024;
+
+  // Use tension division to get real voltage value
+  battery_voltage = vout / (voltageSensor_R2/(voltageSensor_R1+voltageSensor_R2));
+  
+  #if (SERIAL_DEBUG == true)
+    Serial.print(F("\n\tBattery voltage (in V): "));
+    Serial.print(battery_voltage);
+    Serial.flush();
+  #endif
+
+  return battery_voltage;
+}
+
+/**
+ * @fn    getUVIndex
+ * @brief Get UV index from UVM30A sensor.
+ * @return UV index.
+ */
+uint8_t getUVIndex() {
+  // Get UV sensor value and compute in milivolts
+  //int uv_value = (analogRead(UVM30A_PORT) * (5.0 / 1023.0)) * 1000;
+  uint16_t uv_value = analogRead(UVM30A_PIN);
+  uint8_t uv_index = UINT8_MAX;
+  if (isnan(uv_value)) {
+    #if (SERIAL_DEBUG == true)
+      Serial.print(F("\n\tError reading UV radiation index!!!"));
+      Serial.flush();
+    #endif
+  } else {
+    if (uv_value > 1170) {
+      uv_index = 12;
+    } else {
+      for (int i = 0; i < 12; i++) {
+        if (uv_value <= uvIndexValue[i]) {
+          uv_index = i;
+          break;
+        }
+      }
+    }
+    #if (SERIAL_DEBUG == true)
+      Serial.print(F("\n\tUV radiation (in UV index): "));
+      Serial.print(uv_value);
+      Serial.print(" => ");
+      Serial.print(uv_index);
+      Serial.flush();
+    #endif    
+  }
+  return uv_index;
+}
+
+/**
+ * @fn    getLightInLux
+ * @brief Get light intensity (in LUX) from GY30 or GY302 sensor.
+ * @return light intensity (in LUX).
+ */
+uint16_t getLightInLux() {
+  uint16_t lux = lightSensor.readLightLevel();    
+  if ((isnan(lux)) || (lux < 0.0f) || (lux > 65535) ) {
+    lux = UINT16_MAX;
+    if (SERIAL_DEBUG == true) {
+      Serial.print(F("\n\tError reading light level!!!"));
+      Serial.flush();
+    }  
+  } else {    
+    if (SERIAL_DEBUG == true) {
+      Serial.print(F("\n\tLuminosity (in LUX): "));  
+      Serial.print(lux);        
+      Serial.flush();
+    }
+  }
+  return lux;
+}
+
+/**
+ * @fn    float getAirTemperatureInC
+ * @brief Get air temperature (in Celsius) from DHT22 sensor.
+ * @return air temperature (in Celsius).
+ */
+float getAirTemperatureInC() {  
+  dht.temperature().getSensor(&dht_sensor);
+  dht.temperature().getEvent(&dht_sensor_event);
+  float air_temperature = 0.0f;
+
+  if ((isnan(dht_sensor_event.temperature) || (dht_sensor_event.temperature < -40.0f) ||
+      (dht_sensor_event.temperature > 80.0f))) {
+      air_temperature = __FLT_MAX__;
+    #if (SERIAL_DEBUG == true)
+      Serial.print(F("\n\tError reading air temperature!!!"));
+      Serial.flush();
+    #endif  
+  } else {
+    air_temperature = dht_sensor_event.temperature;
+    #if (SERIAL_DEBUG == true)
+        Serial.print(F("\n\tAir temperature (in oC): "));
+        Serial.print(air_temperature);        
+        Serial.flush();
+    #endif
+  }
+  return air_temperature;
+}
+
+/**
+ * @fn    getAirHumidity
+ * @brief Get air umidity (in %) from DHT22 sensor.
+ * @return air umidity (in %).
+ */
+float getAirHumidity() {
+  
+  dht.humidity().getSensor(&dht_sensor);
+  dht.humidity().getEvent(&dht_sensor_event);
+  float air_umidity = 0.0f;
+  
+  if ((isnan(dht_sensor_event.relative_humidity)) || (dht_sensor_event.relative_humidity < 0.0f) ||
+    (dht_sensor_event.relative_humidity > 100.0f)) {
+    air_umidity = __FLT_MAX__;      
+    #if (SERIAL_DEBUG == true)
+      Serial.print(F("\n\tError reading air humidity!!!"));
+      Serial.flush();
+    #endif  
+  } else {
+    air_umidity = dht_sensor_event.relative_humidity;
+    #if (SERIAL_DEBUG == true)
+      Serial.print(F("\n\tAir humidity (in %): "));
+      Serial.print(air_umidity);      
+      Serial.flush();
+    #endif
+  }
+
+  return air_umidity;
+}

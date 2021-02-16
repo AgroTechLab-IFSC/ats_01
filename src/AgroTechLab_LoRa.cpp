@@ -1,10 +1,10 @@
 /**
- * @file LoRa.cpp
+ * @file AgroTechLab_LoRa.cpp
  * @author Robson Costa (robson.costa@ifsc.edu.br)
- * @brief LoRa configuration and operation implementation.
- * @version alpha
+ * @brief AgroTechLab LoRa library.
+ * @version 1.0.0
  * @since 2021-02-15 
- * @date 2021-02-15
+ * @date 2021-02-16
  * 
  * @copyright Copyright (c) 2021 - Robson Costa\n
  * Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Unported License (the <em>"License"</em>). 
@@ -14,7 +14,7 @@
  * conditions of any kind</em>, either express or implied. See the License for the specific language governing 
  * permissions and limitations under the License.
  */
-#include <LoRa.h>
+#include <AgroTechLab_LoRa.h>
 
 /**
  * @fn LoRa::LoRa(LoRaConfig_t lora_config)
@@ -33,7 +33,7 @@ bool LoRa::initModem(LoRaConfig_t loraConfig) {
 
     String at_cmd;
 
-    // Configure UART communication between MEGA 2560 and RHF76-052 LoRa modem
+    // Configure UART communication between MCU and LoRa module LoRa modem
     if (loraConfig.debug) {
         Serial.print("\nInitiating UART port between MCU device and LoRa modem... ");
         Serial.flush();

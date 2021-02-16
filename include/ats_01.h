@@ -20,6 +20,7 @@
 #include <DHT_U.h>
 #include <Adafruit_Sensor.h>
 #include <BH1750.h>
+#include "AgroTechLab_LoRa.h"
 
 /**
  * \def DEV_TYPE 
@@ -78,22 +79,23 @@
 #define DHT_TYPE                        DHT22
 
 /**
- * \def DHT_PORT 
- * DHT22 sensor device port.
+ * \def DHT_PIN 
+ * DHT22 sensor device pin.
  */
-#define DHT_PORT                        9
+#define DHT_PIN                         9
 
 /**
- * \def UVM30A_PORT 
- * UVM30A sensor port.
+ * \def UVM30A_PIN 
+ * UVM30A sensor pin.
  */
-#define UVM30A_PORT                     A0
+#define UVM30A_PIN                      A0
 
-// /**
-//  * \def I2C_PORT 
-//  * I2C port.
-//  */
-// #define I2C_PORT                        7
+/**
+ * \def VOLTAGE_SENSOR_PIN 
+ * Voltage sensor pin.
+ */
+#define VOLTAGE_SENSOR_PIN              A1
+
 
 /*********************************************
  *               DATA STRUCTS
@@ -107,7 +109,7 @@ struct STATION_SENSORS_T {
     float air_humidity = 0.0f;    
     uint16_t light = 0;    
     uint8_t uv_index = 0;
-    float battery = 0.0f;    
+    float battery_voltage = 0.0f;    
 };
 
 /*********************************************
@@ -116,15 +118,28 @@ struct STATION_SENSORS_T {
 #if (SERIAL_DEBUG == true)
     void printInitInfo();
 #endif
+float getAirTemperatureInC();
+float getAirHumidity();
+uint16_t getLightInLux();
+uint8_t getUVIndex();
+float getBatteryVoltage();
 
 /*********************************************
  *             SYSTEM VARIABLES
  ********************************************/
-DHT_Unified dht(DHT_PORT, DHT_TYPE);        /**< Global variable to access DHT sensor. */
-STATION_SENSORS_T sensorsValues;            /**< Global variable with sensor values. */
-BH1750 lightSensor;                         /**< Global variable to access light sensor (GY-30). */
-sensor_t dht_sensor;
-sensors_event_t dht_sensor_event;
+STATION_SENSORS_T sensorsData;              /**< Global variable with sensor values. */
+DHT_Unified dht(DHT_PIN, DHT_TYPE);        /**< Global variable to access DHT sensor (DHT22). */
+BH1750 lightSensor;                         /**< Global variable to access light sensor (GY30). */
+sensor_t dht_sensor;                        /**< Global variable to access DHT sensor internal values. */
+sensors_event_t dht_sensor_event;           /**< Global variable to access DHT sensor internal events. */
+LoRa lora;                                  /**< Global variable to access LoRaWAN module. */
+LoRaConfig_t loraCfg;                       /**< Global variable with LoRa configurations. */
+
+/*********************************************
+ *             SYSTEM CONSTANTS
+ ********************************************/
+const float voltageSensor_R1 = 6800.0;     /**< Voltage sensor resistor 1. */
+const float voltageSensor_R2 = 4700.0;     /**< Voltage sensor resistor 2. */
 const uint16_t uvIndexValue [12] = { 50, 227, 318, 408, 503, 606, 696, 795, 881, 976, 1079, 1170};
 // const unsigned long system_period = 1000;   /**< System run period (in ms). */
 // const unsigned long sampling_period = 2 * 60 * system_period;   /**< Sampling period (in ms). */

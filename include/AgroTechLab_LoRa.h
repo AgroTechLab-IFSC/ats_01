@@ -1,10 +1,10 @@
 /**
- * @file lora.h
+ * @file AgroTechLab_LoRa.h
  * @author Robson Costa (robson.costa@ifsc.edu.br)
- * @brief LoRa operation library.
+ * @brief AgroTechLab LoRa library.
  * @version 1.0.0
  * @since 2021-02-15 
- * @date 2021-02-15
+ * @date 2021-02-16
  * 
  * @copyright Copyright (c) 2021 - Robson Costa\n
  * Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Unported License (the <em>"License"</em>). 
@@ -14,8 +14,8 @@
  * conditions of any kind</em>, either express or implied. See the License for the specific language governing 
  * permissions and limitations under the License.
  */
-#ifndef __LORA_H__
-#define __LORA_H__
+#ifndef __AGROTECHLAB_LORA_H__
+#define __AGROTECHLAB_LORA_H__
 
 #include <Arduino.h>
 
@@ -217,4 +217,4 @@ class LoRa {
         bool sendAckMsgHex(LoRaConfig_t loraCfg, uint8_t port, String buf);
         void callback_RX();
 };
-#endif // __LORA_H_
+#endif // __AGROTECHLAB_LORA_H__

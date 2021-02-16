@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['printinitinfo_35',['printInitInfo',['../dd/df2/ats__01_8h.html#a8d7631f5844afb5324ba3760ee40ce1c',1,'printInitInfo():&#160;ats_01.cpp'],['../da/dc9/ats__01_8cpp.html#acc85a2081e0d9955588ca24aab3087f8',1,'printInitInfo():&#160;ats_01.cpp']]]
+  ['off_72',['OFF',['../d5/d90/_agro_tech_lab___lo_ra_8h.html#a0967aafffdf2b58aa8285f9684adf215aba437f58ad654d395b18d209a1a8c21c',1,'AgroTechLab_LoRa.h']]],
+  ['on_73',['ON',['../d5/d90/_agro_tech_lab___lo_ra_8h.html#a0967aafffdf2b58aa8285f9684adf215a29bb63ba715ee27a89725069074d5665',1,'AgroTechLab_LoRa.h']]],
+  ['op_5fclass_74',['op_class',['../d5/d0e/struct_lo_ra_config__t.html#ab3925f745218d60a6dd95f27a5c50c19',1,'LoRaConfig_t']]]
 ];

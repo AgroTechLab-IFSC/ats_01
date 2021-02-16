@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setup_59',['setup',['../da/dc9/ats__01_8cpp.html#a1d04139db3a5ad5713ecbd14d97da879',1,'ats_01.cpp']]]
+  ['printinitinfo_109',['printInitInfo',['../dd/df2/ats__01_8h.html#a8d7631f5844afb5324ba3760ee40ce1c',1,'printInitInfo():&#160;ats_01.cpp'],['../da/dc9/ats__01_8cpp.html#acc85a2081e0d9955588ca24aab3087f8',1,'printInitInfo():&#160;ats_01.cpp']]]
 ];

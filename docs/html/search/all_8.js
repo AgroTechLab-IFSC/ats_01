@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['op_5fclass_34',['op_class',['../d5/d0e/struct_lo_ra_config__t.html#ab3925f745218d60a6dd95f27a5c50c19',1,'LoRaConfig_t']]]
+  ['nwks_5fkey_71',['nwks_key',['../d5/d0e/struct_lo_ra_config__t.html#af49ad943c94ba3d1f6216e397823904a',1,'LoRaConfig_t::nwks_key()'],['../dd/df2/ats__01_8h.html#ae20da9171b77881cff2867e6781441c7',1,'nwks_key():&#160;ats_01.h']]]
 ];

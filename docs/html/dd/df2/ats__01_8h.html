@@ -82,15 +82,18 @@ $(function() {
 <div class="textblock"><code>#include &lt;DHT_U.h&gt;</code><br />
 <code>#include &lt;Adafruit_Sensor.h&gt;</code><br />
 <code>#include &lt;BH1750.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d90/_agro_tech_lab___lo_ra_8h_source.html">AgroTechLab_LoRa.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for ats_01.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/dc8/ats__01_8h__incl.png" border="0" usemap="#_2home_2robson_2_g_drive_2workspaces_2agrotechlab_2agrotech4all_2ats__01_2include_2ats__01_8h" alt=""/></div>
 <map name="_2home_2robson_2_g_drive_2workspaces_2agrotechlab_2agrotech4all_2ats__01_2include_2ats__01_8h" id="_2home_2robson_2_g_drive_2workspaces_2agrotechlab_2agrotech4all_2ats__01_2include_2ats__01_8h">
-<area shape="rect" title="AgroTechStation 01 general library." alt="" coords="74,5,279,76"/>
+<area shape="rect" title="AgroTechStation 01 general library." alt="" coords="141,5,346,76"/>
 <area shape="rect" title=" " alt="" coords="5,124,84,151"/>
 <area shape="rect" title=" " alt="" coords="109,124,245,151"/>
 <area shape="rect" title=" " alt="" coords="269,124,354,151"/>
+<area shape="rect" href="../../d5/d90/_agro_tech_lab___lo_ra_8h.html" title="AgroTechLab LoRa library." alt="" coords="378,124,533,151"/>
+<area shape="rect" title=" " alt="" coords="413,199,497,225"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -114,11 +117,11 @@ Data Structures</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a5454b7a913f969a1aa7eacaf500fb44e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a5454b7a913f969a1aa7eacaf500fb44e">DEV_TYPE</a>&#160;&#160;&#160;&quot;Arduino Pro Mini Atmega328p 5V 16MHz&quot;</td></tr>
 <tr class="separator:a5454b7a913f969a1aa7eacaf500fb44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96e040e575cd3ee76ba354505c5e3865"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a96e040e575cd3ee76ba354505c5e3865">DEV_CONN</a>&#160;&#160;&#160;&quot;LoRa - RHF76-052AM&quot;</td></tr>
+<tr class="memitem:a96e040e575cd3ee76ba354505c5e3865"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a96e040e575cd3ee76ba354505c5e3865">DEV_CONN</a>&#160;&#160;&#160;&quot;LoRa - RHF0M003&quot;</td></tr>
 <tr class="separator:a96e040e575cd3ee76ba354505c5e3865"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab950358caa433fd20e51b46ffaccef45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#ab950358caa433fd20e51b46ffaccef45">DEV_FW_VERSION</a>&#160;&#160;&#160;&quot;1.0.0&quot;</td></tr>
 <tr class="separator:ab950358caa433fd20e51b46ffaccef45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf51b827840c0770cf968a1306bbf5c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#acf51b827840c0770cf968a1306bbf5c4">DEV_SENSOR_LIST</a>&#160;&#160;&#160;&quot;DHT22, BH1750&quot;</td></tr>
+<tr class="memitem:acf51b827840c0770cf968a1306bbf5c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#acf51b827840c0770cf968a1306bbf5c4">DEV_SENSOR_LIST</a>&#160;&#160;&#160;&quot;DHT22, GY30, UVM30A&quot;</td></tr>
 <tr class="separator:acf51b827840c0770cf968a1306bbf5c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acce8b1e931d2f23821efc1c076144fd1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#acce8b1e931d2f23821efc1c076144fd1">DEV_ACTUATOR_LIST</a>&#160;&#160;&#160;&quot;none&quot;</td></tr>
 <tr class="separator:acce8b1e931d2f23821efc1c076144fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,8 +133,12 @@ Macros</h2></td></tr>
 <tr class="separator:a89f82a9d44beaa52b00c7245a50a105c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfae246a91df54e807874aa8680beccb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#abfae246a91df54e807874aa8680beccb">DHT_TYPE</a>&#160;&#160;&#160;DHT22</td></tr>
 <tr class="separator:abfae246a91df54e807874aa8680beccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf42d52e26184fffc237b7bab4abdea6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#adf42d52e26184fffc237b7bab4abdea6">DHT_PORT</a>&#160;&#160;&#160;9</td></tr>
-<tr class="separator:adf42d52e26184fffc237b7bab4abdea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a661d236dd49f3aef3a2cf46cf6a1405e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a661d236dd49f3aef3a2cf46cf6a1405e">DHT_PIN</a>&#160;&#160;&#160;9</td></tr>
+<tr class="separator:a661d236dd49f3aef3a2cf46cf6a1405e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a196e80a62abcd072bebefa93b3a90627"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a196e80a62abcd072bebefa93b3a90627">UVM30A_PIN</a>&#160;&#160;&#160;A0</td></tr>
+<tr class="separator:a196e80a62abcd072bebefa93b3a90627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad861d99cf8fe5c6111703dbe78489652"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#ad861d99cf8fe5c6111703dbe78489652">VOLTAGE_SENSOR_PIN</a>&#160;&#160;&#160;A1</td></tr>
+<tr class="separator:ad861d99cf8fe5c6111703dbe78489652"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -139,15 +146,45 @@ Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a8d7631f5844afb5324ba3760ee40ce1c">printInitInfo</a> ()</td></tr>
 <tr class="memdesc:a8d7631f5844afb5324ba3760ee40ce1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print weather station initial information. <br /></td></tr>
 <tr class="separator:a8d7631f5844afb5324ba3760ee40ce1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e407350bfa2e79149c32e6422f60d10"><td class="memItemLeft" align="right" valign="top">DHT_Unified&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a7e407350bfa2e79149c32e6422f60d10">dht</a> (<a class="el" href="../../dd/df2/ats__01_8h.html#adf42d52e26184fffc237b7bab4abdea6">DHT_PORT</a>, <a class="el" href="../../dd/df2/ats__01_8h.html#abfae246a91df54e807874aa8680beccb">DHT_TYPE</a>)</td></tr>
-<tr class="separator:a7e407350bfa2e79149c32e6422f60d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9c9b7721e873e6e18c2279c8cb6ac3e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#ae9c9b7721e873e6e18c2279c8cb6ac3e">getAirTemperatureInC</a> ()</td></tr>
+<tr class="memdesc:ae9c9b7721e873e6e18c2279c8cb6ac3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get air temperature (in Celsius) from DHT22 sensor.  <a href="../../dd/df2/ats__01_8h.html#ae9c9b7721e873e6e18c2279c8cb6ac3e">More...</a><br /></td></tr>
+<tr class="separator:ae9c9b7721e873e6e18c2279c8cb6ac3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a588b7022c7e6fd63a7b8aa9c022dc5a9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a588b7022c7e6fd63a7b8aa9c022dc5a9">getAirHumidity</a> ()</td></tr>
+<tr class="memdesc:a588b7022c7e6fd63a7b8aa9c022dc5a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get air umidity (in %) from DHT22 sensor.  <a href="../../dd/df2/ats__01_8h.html#a588b7022c7e6fd63a7b8aa9c022dc5a9">More...</a><br /></td></tr>
+<tr class="separator:a588b7022c7e6fd63a7b8aa9c022dc5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d10aff0e12dda48a2733b35ba9ebace"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a2d10aff0e12dda48a2733b35ba9ebace">getLightInLux</a> ()</td></tr>
+<tr class="memdesc:a2d10aff0e12dda48a2733b35ba9ebace"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get light intensity (in LUX) from GY30 or GY302 sensor.  <a href="../../dd/df2/ats__01_8h.html#a2d10aff0e12dda48a2733b35ba9ebace">More...</a><br /></td></tr>
+<tr class="separator:a2d10aff0e12dda48a2733b35ba9ebace"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d91501ceb380c2a042696a97c2c6b13"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a0d91501ceb380c2a042696a97c2c6b13">getUVIndex</a> ()</td></tr>
+<tr class="memdesc:a0d91501ceb380c2a042696a97c2c6b13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get UV index from UVM30A sensor.  <a href="../../dd/df2/ats__01_8h.html#a0d91501ceb380c2a042696a97c2c6b13">More...</a><br /></td></tr>
+<tr class="separator:a0d91501ceb380c2a042696a97c2c6b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e3d1f45fd0fd5560277e5157f4751c2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a3e3d1f45fd0fd5560277e5157f4751c2">getBatteryVoltage</a> ()</td></tr>
+<tr class="memdesc:a3e3d1f45fd0fd5560277e5157f4751c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get battery voltage level.  <a href="../../dd/df2/ats__01_8h.html#a3e3d1f45fd0fd5560277e5157f4751c2">More...</a><br /></td></tr>
+<tr class="separator:a3e3d1f45fd0fd5560277e5157f4751c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5cb70b46cacf3f7103ccec8acdc6526"><td class="memItemLeft" align="right" valign="top">DHT_Unified&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#ab5cb70b46cacf3f7103ccec8acdc6526">dht</a> (<a class="el" href="../../dd/df2/ats__01_8h.html#a661d236dd49f3aef3a2cf46cf6a1405e">DHT_PIN</a>, <a class="el" href="../../dd/df2/ats__01_8h.html#abfae246a91df54e807874aa8680beccb">DHT_TYPE</a>)</td></tr>
+<tr class="separator:ab5cb70b46cacf3f7103ccec8acdc6526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a14ed7c70caeda2a7e60360fed4c217a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d69/struct_s_t_a_t_i_o_n___s_e_n_s_o_r_s___t.html">STATION_SENSORS_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a14ed7c70caeda2a7e60360fed4c217a0">sensorsValues</a></td></tr>
-<tr class="separator:a14ed7c70caeda2a7e60360fed4c217a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad17493228b6498770edeec50053d9187"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d69/struct_s_t_a_t_i_o_n___s_e_n_s_o_r_s___t.html">STATION_SENSORS_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#ad17493228b6498770edeec50053d9187">sensorsData</a></td></tr>
+<tr class="separator:ad17493228b6498770edeec50053d9187"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a688c83b7367ab589fd38fd312baf9415"><td class="memItemLeft" align="right" valign="top">BH1750&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a688c83b7367ab589fd38fd312baf9415">lightSensor</a></td></tr>
 <tr class="separator:a688c83b7367ab589fd38fd312baf9415"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed3dba3317187e954d9e8834c00111e0"><td class="memItemLeft" align="right" valign="top">sensor_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#aed3dba3317187e954d9e8834c00111e0">dht_sensor</a></td></tr>
+<tr class="separator:aed3dba3317187e954d9e8834c00111e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4fc3faac6f48808070b1535cfb186aa"><td class="memItemLeft" align="right" valign="top">sensors_event_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#af4fc3faac6f48808070b1535cfb186aa">dht_sensor_event</a></td></tr>
+<tr class="separator:af4fc3faac6f48808070b1535cfb186aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1d2177deceee4031d8bb58303d3760"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dbf/class_lo_ra.html">LoRa</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#afe1d2177deceee4031d8bb58303d3760">lora</a></td></tr>
+<tr class="separator:afe1d2177deceee4031d8bb58303d3760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f951e4335f05aeacbb1795f34c4510d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d0e/struct_lo_ra_config__t.html">LoRaConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a6f951e4335f05aeacbb1795f34c4510d">loraCfg</a></td></tr>
+<tr class="separator:a6f951e4335f05aeacbb1795f34c4510d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b6cec62f9359f549b1eb911a9c22fea"><td class="memItemLeft" align="right" valign="top">const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a6b6cec62f9359f549b1eb911a9c22fea">voltageSensor_R1</a> = 6800.0</td></tr>
+<tr class="separator:a6b6cec62f9359f549b1eb911a9c22fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f47b34825177290805ae8a8979c086e"><td class="memItemLeft" align="right" valign="top">const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a2f47b34825177290805ae8a8979c086e">voltageSensor_R2</a> = 4700.0</td></tr>
+<tr class="separator:a2f47b34825177290805ae8a8979c086e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecc30fe936d6e973801e3f110dacfb71"><td class="memItemLeft" align="right" valign="top"><a id="aecc30fe936d6e973801e3f110dacfb71"></a>
+const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>uvIndexValue</b> [12] = { 50, 227, 318, 408, 503, 606, 696, 795, 881, 976, 1079, 1170}</td></tr>
+<tr class="separator:aecc30fe936d6e973801e3f110dacfb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acde69a77fcfb5715f243acb1d2182f68"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#acde69a77fcfb5715f243acb1d2182f68">chan0_freq</a> = &quot;917.2&quot;</td></tr>
 <tr class="separator:acde69a77fcfb5715f243acb1d2182f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d697cc8bb64791f405056bc0e8020fa"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a5d697cc8bb64791f405056bc0e8020fa">chan1_freq</a> = &quot;917.9&quot;</td></tr>
@@ -176,7 +213,7 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Robson Costa (<a href="#" onclick="location.href='mai'+'lto:'+'rob'+'so'+'n.c'+'os'+'ta@'+'if'+'sc.'+'ed'+'u.b'+'r'; return false;">robso<span style="display: none;">.nosp@m.</span>n.co<span style="display: none;">.nosp@m.</span>sta@i<span style="display: none;">.nosp@m.</span>fsc.<span style="display: none;">.nosp@m.</span>edu.b<span style="display: none;">.nosp@m.</span>r</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>1.0.0 </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>2021-02-15 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2021-02-15</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2021-02-16</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2021 - Robson Costa<br  />
 Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Unported License (the <em>"License"</em>). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode</a>}. Unless required by applicable law or agreed to in writing, <br  />
  software distributed under the License is distributed on an <em>"as is" basis, without warranties or conditions of any kind</em>, either express or implied. See the License for the specific language governing permissions and limitations under the License. </dd></dl>
@@ -203,7 +240,7 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DEV_CONN&#160;&#160;&#160;&quot;LoRa - RHF76-052AM&quot;</td>
+          <td class="memname">#define DEV_CONN&#160;&#160;&#160;&quot;LoRa - RHF0M003&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -233,7 +270,7 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DEV_SENSOR_LIST&#160;&#160;&#160;&quot;DHT22, BH1750&quot;</td>
+          <td class="memname">#define DEV_SENSOR_LIST&#160;&#160;&#160;&quot;DHT22, GY30, UVM30A&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -256,18 +293,18 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 
 </div>
 </div>
-<a id="adf42d52e26184fffc237b7bab4abdea6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf42d52e26184fffc237b7bab4abdea6">&#9670;&nbsp;</a></span>DHT_PORT</h2>
+<a id="a661d236dd49f3aef3a2cf46cf6a1405e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a661d236dd49f3aef3a2cf46cf6a1405e">&#9670;&nbsp;</a></span>DHT_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DHT_PORT&#160;&#160;&#160;9</td>
+          <td class="memname">#define DHT_PIN&#160;&#160;&#160;9</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>DHT22 sensor device port. </p>
+<p>DHT22 sensor device pin. </p>
 
 </div>
 </div>
@@ -331,9 +368,39 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 
 </div>
 </div>
+<a id="a196e80a62abcd072bebefa93b3a90627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a196e80a62abcd072bebefa93b3a90627">&#9670;&nbsp;</a></span>UVM30A_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UVM30A_PIN&#160;&#160;&#160;A0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>UVM30A sensor pin. </p>
+
+</div>
+</div>
+<a id="ad861d99cf8fe5c6111703dbe78489652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad861d99cf8fe5c6111703dbe78489652">&#9670;&nbsp;</a></span>VOLTAGE_SENSOR_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VOLTAGE_SENSOR_PIN&#160;&#160;&#160;A1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Voltage sensor pin. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a7e407350bfa2e79149c32e6422f60d10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e407350bfa2e79149c32e6422f60d10">&#9670;&nbsp;</a></span>dht()</h2>
+<a id="ab5cb70b46cacf3f7103ccec8acdc6526"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5cb70b46cacf3f7103ccec8acdc6526">&#9670;&nbsp;</a></span>dht()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -341,7 +408,7 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
         <tr>
           <td class="memname">DHT_Unified dht </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dd/df2/ats__01_8h.html#adf42d52e26184fffc237b7bab4abdea6">DHT_PORT</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/df2/ats__01_8h.html#a661d236dd49f3aef3a2cf46cf6a1405e">DHT_PIN</a>&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -357,7 +424,107 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Global variable to access DHT sensor. </p>
+<p>Global variable to access DHT sensor (DHT22). </p>
+
+</div>
+</div>
+<a id="a588b7022c7e6fd63a7b8aa9c022dc5a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a588b7022c7e6fd63a7b8aa9c022dc5a9">&#9670;&nbsp;</a></span>getAirHumidity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getAirHumidity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get air umidity (in %) from DHT22 sensor. </p>
+<dl class="section return"><dt>Returns</dt><dd>air umidity (in %). </dd></dl>
+
+</div>
+</div>
+<a id="ae9c9b7721e873e6e18c2279c8cb6ac3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9c9b7721e873e6e18c2279c8cb6ac3e">&#9670;&nbsp;</a></span>getAirTemperatureInC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float getAirTemperatureInC </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get air temperature (in Celsius) from DHT22 sensor. </p>
+<dl class="section return"><dt>Returns</dt><dd>air temperature (in Celsius). </dd></dl>
+
+</div>
+</div>
+<a id="a3e3d1f45fd0fd5560277e5157f4751c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e3d1f45fd0fd5560277e5157f4751c2">&#9670;&nbsp;</a></span>getBatteryVoltage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getBatteryVoltage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get battery voltage level. </p>
+<dl class="section return"><dt>Returns</dt><dd>battery voltage. </dd></dl>
+
+</div>
+</div>
+<a id="a2d10aff0e12dda48a2733b35ba9ebace"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d10aff0e12dda48a2733b35ba9ebace">&#9670;&nbsp;</a></span>getLightInLux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLightInLux </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get light intensity (in LUX) from GY30 or GY302 sensor. </p>
+<dl class="section return"><dt>Returns</dt><dd>light intensity (in LUX). </dd></dl>
+
+</div>
+</div>
+<a id="a0d91501ceb380c2a042696a97c2c6b13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d91501ceb380c2a042696a97c2c6b13">&#9670;&nbsp;</a></span>getUVIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getUVIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get UV index from UVM30A sensor. </p>
+<dl class="section return"><dt>Returns</dt><dd>UV index. </dd></dl>
 
 </div>
 </div>
@@ -467,6 +634,36 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 
 </div>
 </div>
+<a id="aed3dba3317187e954d9e8834c00111e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed3dba3317187e954d9e8834c00111e0">&#9670;&nbsp;</a></span>dht_sensor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sensor_t dht_sensor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Global variable to access DHT sensor internal values. </p>
+
+</div>
+</div>
+<a id="af4fc3faac6f48808070b1535cfb186aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4fc3faac6f48808070b1535cfb186aa">&#9670;&nbsp;</a></span>dht_sensor_event</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sensors_event_t dht_sensor_event</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Global variable to access DHT sensor internal events. </p>
+
+</div>
+</div>
 <a id="a688c83b7367ab589fd38fd312baf9415"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a688c83b7367ab589fd38fd312baf9415">&#9670;&nbsp;</a></span>lightSensor</h2>
 
@@ -478,7 +675,37 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Global variable to access light sensor (GY-30). </p>
+<p>Global variable to access light sensor (GY30). </p>
+
+</div>
+</div>
+<a id="afe1d2177deceee4031d8bb58303d3760"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe1d2177deceee4031d8bb58303d3760">&#9670;&nbsp;</a></span>lora</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/dbf/class_lo_ra.html">LoRa</a> lora</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Global variable to access LoRaWAN module. </p>
+
+</div>
+</div>
+<a id="a6f951e4335f05aeacbb1795f34c4510d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f951e4335f05aeacbb1795f34c4510d">&#9670;&nbsp;</a></span>loraCfg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d5/d0e/struct_lo_ra_config__t.html">LoRaConfig_t</a> loraCfg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Global variable with <a class="el" href="../../d2/dbf/class_lo_ra.html">LoRa</a> configurations. </p>
 
 </div>
 </div>
@@ -542,18 +769,48 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 
 </div>
 </div>
-<a id="a14ed7c70caeda2a7e60360fed4c217a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14ed7c70caeda2a7e60360fed4c217a0">&#9670;&nbsp;</a></span>sensorsValues</h2>
+<a id="ad17493228b6498770edeec50053d9187"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad17493228b6498770edeec50053d9187">&#9670;&nbsp;</a></span>sensorsData</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dd/d69/struct_s_t_a_t_i_o_n___s_e_n_s_o_r_s___t.html">STATION_SENSORS_T</a> sensorsValues</td>
+          <td class="memname"><a class="el" href="../../dd/d69/struct_s_t_a_t_i_o_n___s_e_n_s_o_r_s___t.html">STATION_SENSORS_T</a> sensorsData</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Global variable with sensor values. </p>
+
+</div>
+</div>
+<a id="a6b6cec62f9359f549b1eb911a9c22fea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b6cec62f9359f549b1eb911a9c22fea">&#9670;&nbsp;</a></span>voltageSensor_R1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float voltageSensor_R1 = 6800.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Voltage sensor resistor 1. </p>
+
+</div>
+</div>
+<a id="a2f47b34825177290805ae8a8979c086e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f47b34825177290805ae8a8979c086e">&#9670;&nbsp;</a></span>voltageSensor_R2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float voltageSensor_R2 = 4700.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Voltage sensor resistor 2. </p>
 
 </div>
 </div>
