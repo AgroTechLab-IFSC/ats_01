@@ -43,7 +43,7 @@
  * \def DEV_SENSOR_LIST 
  * List of sensors enabled in the station.
  */
-#define DEV_SENSOR_LIST                 "DHT22, BH1750"
+#define DEV_SENSOR_LIST                 "DHT22, GY30, UVM30A"
 
 /**
  * \def DEV_ACTUATOR_LIST 
@@ -87,7 +87,7 @@
  * \def UVM30A_PORT 
  * UVM30A sensor port.
  */
-// #define UVM30A_PORT                     A0
+#define UVM30A_PORT                     A0
 
 // /**
 //  * \def I2C_PORT 
@@ -107,8 +107,6 @@ struct STATION_SENSORS_T {
     float air_humidity = 0.0f;    
     uint16_t light = 0;    
     uint8_t uv_index = 0;
-    uint8_t soil_moisture = 0;
-    float soil_temperature = 0.0f;
     float battery = 0.0f;    
 };
 
@@ -125,6 +123,9 @@ struct STATION_SENSORS_T {
 DHT_Unified dht(DHT_PORT, DHT_TYPE);        /**< Global variable to access DHT sensor. */
 STATION_SENSORS_T sensorsValues;            /**< Global variable with sensor values. */
 BH1750 lightSensor;                         /**< Global variable to access light sensor (GY-30). */
+sensor_t dht_sensor;
+sensors_event_t dht_sensor_event;
+const uint16_t uvIndexValue [12] = { 50, 227, 318, 408, 503, 606, 696, 795, 881, 976, 1079, 1170};
 // const unsigned long system_period = 1000;   /**< System run period (in ms). */
 // const unsigned long sampling_period = 2 * 60 * system_period;   /**< Sampling period (in ms). */
 // const unsigned long error_reset_period = 60 * system_period;   /**< Error reset period (in ms). */

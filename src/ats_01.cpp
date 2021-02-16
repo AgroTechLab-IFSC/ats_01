@@ -225,12 +225,95 @@ void setup() {
  * @brief Loop function executed cyclically based on the value of \ref system_period.
  */
 void loop() {
+  // Power on builtin LED during reading process
+  digitalWrite(LED_BUILTIN, HIGH);
+
   Serial.print("\nReading sensors....");
-  Serial.print("\n\tAir temperature (in oC): ");
-  Serial.print("\n\tAir umidity (in %): ");
-  Serial.print("\n\tLuminosity (in LUX): ");
-  Serial.print("\n\tUV radiation (in UV index): ");
-  delay(1000);
+  dht.temperature().getSensor(&dht_sensor);
+  dht.temperature().getEvent(&dht_sensor_event);
+  if ((isnan(dht_sensor_event.temperature) || (dht_sensor_event.temperature < -40.0f) ||
+      (dht_sensor_event.temperature > 80.0f))) {
+      sensorsValues.air_temperature = __FLT_MAX__;
+    if (SERIAL_DEBUG == true) {
+      Serial.print("\n\tError reading air temperature!!!");
+      Serial.flush();
+    }  
+  } else {
+    sensorsValues.air_temperature = dht_sensor_event.temperature;
+    if (SERIAL_DEBUG == true) {
+        Serial.print("\n\tAir temperature (in oC): ");
+        Serial.print(sensorsValues.air_temperature);        
+        Serial.flush();
+    }
+  }
+
+  dht.humidity().getSensor(&dht_sensor);
+  dht.humidity().getEvent(&dht_sensor_event);
+  if ((isnan(dht_sensor_event.relative_humidity)) || (dht_sensor_event.relative_humidity < 0.0f) ||
+    (dht_sensor_event.relative_humidity > 100.0f)) {
+    sensorsValues.air_humidity = __FLT_MAX__;      
+    if (SERIAL_DEBUG == true) {
+      Serial.print("\n\tError reading air humidity!!!");
+      Serial.flush();
+    }  
+  } else {
+    sensorsValues.air_humidity = dht_sensor_event.relative_humidity;
+    if (SERIAL_DEBUG == true) {
+      Serial.print("\n\tAir humidity (in %): ");
+      Serial.print(sensorsValues.air_humidity);      
+      Serial.flush();
+    }
+  }
+
+  // uint16_t lux = lightSensor.readLightLevel();    
+  // if ((isnan(lux)) || (lux < 0.0f) || (lux > 65535) ) {
+  //   sensorsValues.light = UINT16_MAX;
+  //   if (SERIAL_DEBUG == true) {
+  //     Serial.print("\n\tError reading light level!!!");
+  //     Serial.flush();
+  //   }  
+  // } else {
+  //   sensorsValues.light = lux;
+  //   if (SERIAL_DEBUG == true) {
+  //     Serial.print("\n\tLuminosity (in LUX): ");  
+  //     Serial.print(sensorsValues.light);        
+  //     Serial.flush();
+  //   }
+  // }
+  
+  // Get UV sensor value and compute in milivolts
+  //int uv_value = (analogRead(UVM30A_PORT) * (5.0 / 1023.0)) * 1000;
+  uint16_t uv_value = analogRead(UVM30A_PORT);
+  if (isnan(uv_value)) {
+    if (SERIAL_DEBUG == true) {
+      Serial.print("\n\tError reading UV radiation index!!!");
+      Serial.flush();
+    }  
+  } else {
+    if (uv_value > 1170) {
+      sensorsValues.uv_index = 12;
+    } else {
+      for (int i = 0; i < 12; i++) {
+        if (uv_value <= uvIndexValue[i]) {
+          sensorsValues.uv_index = i;
+          break;
+        }
+      }
+    }
+    if (SERIAL_DEBUG == true) {
+      Serial.print("\n\tUV radiation (in UV index): ");
+      Serial.print(uv_value);
+      Serial.print(" => ");
+      Serial.print(sensorsValues.uv_index);
+      Serial.flush();
+    }
+  } 
+
+  // Power off builtin LED after reading process
+  digitalWrite(LED_BUILTIN, LOW);
+
+  // Sleep 5 seconds
+  delay(5000);
 }
 
 #if (SERIAL_DEBUG == true)
