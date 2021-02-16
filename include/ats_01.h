@@ -4,7 +4,7 @@
  * @brief AgroTechStation 01 general library.
  * @version 1.0.0
  * @since 2021-02-15 
- * @date 2021-02-15
+ * @date 2021-02-16
  * 
  * @copyright Copyright (c) 2021 - Robson Costa\n
  * Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Unported License (the <em>"License"</em>). 
@@ -31,7 +31,7 @@
  * \def DEV_CONN 
  * Communication device board.
  */ 
-#define DEV_CONN                        "LoRa - RHF76-052AM"
+#define DEV_CONN                        "LoRa - RHF0M003"
 
 /**
  * \def DEV_FW_VERSION 

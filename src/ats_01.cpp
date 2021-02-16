@@ -162,7 +162,7 @@
  * @brief Project main file.
  * @version 1.0.0
  * @since 2021-02-15 
- * @date 2021-02-15
+ * @date 2021-02-16
  * 
  * @copyright Copyright (c) 2021 - Robson Costa\n
  * Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Unported License (the <em>"License"</em>). 
@@ -195,26 +195,26 @@ void setup() {
 
   // Setup and initialize DHT22 sensor
   pinMode(DHT_PORT, INPUT);  
+  #if (SERIAL_DEBUG == true)
+    Serial.print(F("\n\tInitializing DHT sensor... "));
+    Serial.flush();
+  #endif
+  dht.begin();
+  #if (SERIAL_DEBUG == true)
+    Serial.print("[OK]");
+    Serial.flush();
+  #endif
+
+  // Initialize light sensor
   if (SERIAL_DEBUG) {
-    Serial.print("\n\tInitializing DHT sensor... ");
+    Serial.print("\n\tInitializing light sensor... ");
     Serial.flush();
   }
-  dht.begin();
+  lightSensor.begin();
   if (SERIAL_DEBUG) {
     Serial.print("[OK]");
     Serial.flush();
   }
-
-  // // Initialize light sensor
-  // if (SERIAL_DEBUG) {
-  //   Serial.print("\n\tInitializing light sensor... ");
-  //   Serial.flush();
-  // }
-  // lightSensor.begin();
-  // if (SERIAL_DEBUG) {
-  //   Serial.print("[OK]");
-  //   Serial.flush();
-  // }
 
   // Power off builtin LED after setup process
   digitalWrite(LED_BUILTIN, LOW);
@@ -228,67 +228,72 @@ void loop() {
   // Power on builtin LED during reading process
   digitalWrite(LED_BUILTIN, HIGH);
 
-  Serial.print("\nReading sensors....");
+  #if (SERIAL_DEBUG == true)
+    Serial.print(F("\nReading sensors...."));
+  #endif
+
+  // Reading air temperature
   dht.temperature().getSensor(&dht_sensor);
   dht.temperature().getEvent(&dht_sensor_event);
   if ((isnan(dht_sensor_event.temperature) || (dht_sensor_event.temperature < -40.0f) ||
       (dht_sensor_event.temperature > 80.0f))) {
       sensorsValues.air_temperature = __FLT_MAX__;
-    if (SERIAL_DEBUG == true) {
+    #if (SERIAL_DEBUG == true)
       Serial.print("\n\tError reading air temperature!!!");
       Serial.flush();
-    }  
+    #endif  
   } else {
     sensorsValues.air_temperature = dht_sensor_event.temperature;
-    if (SERIAL_DEBUG == true) {
+    #if (SERIAL_DEBUG == true)
         Serial.print("\n\tAir temperature (in oC): ");
         Serial.print(sensorsValues.air_temperature);        
         Serial.flush();
-    }
+    #endif
   }
 
+  // Reading air humidity
   dht.humidity().getSensor(&dht_sensor);
   dht.humidity().getEvent(&dht_sensor_event);
   if ((isnan(dht_sensor_event.relative_humidity)) || (dht_sensor_event.relative_humidity < 0.0f) ||
     (dht_sensor_event.relative_humidity > 100.0f)) {
     sensorsValues.air_humidity = __FLT_MAX__;      
-    if (SERIAL_DEBUG == true) {
+    #if (SERIAL_DEBUG == true)
       Serial.print("\n\tError reading air humidity!!!");
       Serial.flush();
-    }  
+    #endif  
   } else {
     sensorsValues.air_humidity = dht_sensor_event.relative_humidity;
-    if (SERIAL_DEBUG == true) {
+    #if (SERIAL_DEBUG == true)
       Serial.print("\n\tAir humidity (in %): ");
       Serial.print(sensorsValues.air_humidity);      
       Serial.flush();
-    }
+    #endif
   }
 
-  // uint16_t lux = lightSensor.readLightLevel();    
-  // if ((isnan(lux)) || (lux < 0.0f) || (lux > 65535) ) {
-  //   sensorsValues.light = UINT16_MAX;
-  //   if (SERIAL_DEBUG == true) {
-  //     Serial.print("\n\tError reading light level!!!");
-  //     Serial.flush();
-  //   }  
-  // } else {
-  //   sensorsValues.light = lux;
-  //   if (SERIAL_DEBUG == true) {
-  //     Serial.print("\n\tLuminosity (in LUX): ");  
-  //     Serial.print(sensorsValues.light);        
-  //     Serial.flush();
-  //   }
-  // }
+  uint16_t lux = lightSensor.readLightLevel();    
+  if ((isnan(lux)) || (lux < 0.0f) || (lux > 65535) ) {
+    sensorsValues.light = UINT16_MAX;
+    if (SERIAL_DEBUG == true) {
+      Serial.print("\n\tError reading light level!!!");
+      Serial.flush();
+    }  
+  } else {
+    sensorsValues.light = lux;
+    if (SERIAL_DEBUG == true) {
+      Serial.print("\n\tLuminosity (in LUX): ");  
+      Serial.print(sensorsValues.light);        
+      Serial.flush();
+    }
+  }
   
   // Get UV sensor value and compute in milivolts
   //int uv_value = (analogRead(UVM30A_PORT) * (5.0 / 1023.0)) * 1000;
   uint16_t uv_value = analogRead(UVM30A_PORT);
   if (isnan(uv_value)) {
-    if (SERIAL_DEBUG == true) {
+    #if (SERIAL_DEBUG == true)
       Serial.print("\n\tError reading UV radiation index!!!");
       Serial.flush();
-    }  
+    #endif
   } else {
     if (uv_value > 1170) {
       sensorsValues.uv_index = 12;
@@ -300,13 +305,13 @@ void loop() {
         }
       }
     }
-    if (SERIAL_DEBUG == true) {
+    #if (SERIAL_DEBUG == true)
       Serial.print("\n\tUV radiation (in UV index): ");
       Serial.print(uv_value);
       Serial.print(" => ");
       Serial.print(sensorsValues.uv_index);
       Serial.flush();
-    }
+    #endif
   } 
 
   // Power off builtin LED after reading process
@@ -323,21 +328,21 @@ void loop() {
  * 
  */
 void printInitInfo() {
-  Serial.print("\n##########################################\n");
-  Serial.print("#                ATS-01                  #\n");
-  Serial.print("#   AgroTech Station 01 (Tiny version)   #\n");
-  Serial.print("#        AgroTechLab (IFSC/Lages)        #\n");  
-  Serial.print("##########################################\n");
-  Serial.print("Starting ATS-01...");
-  Serial.print("\n\tMCU device board......: ");
+  Serial.print(F("\n##########################################\n"));
+  Serial.print(F("#                ATS-01                  #\n"));
+  Serial.print(F("#   AgroTech Station 01 (Tiny version)   #\n"));
+  Serial.print(F("#        AgroTechLab (IFSC/Lages)        #\n"));  
+  Serial.print(F("##########################################\n"));
+  Serial.print(F("Starting ATS-01..."));
+  Serial.print(F("\n\tMCU device board......: "));
   Serial.print(DEV_TYPE);
-  Serial.print("\n\tCommunication device..: ");
+  Serial.print(F("\n\tCommunication device..: "));
   Serial.print(DEV_CONN);
-  Serial.print("\n\tFirmware version......: ");
+  Serial.print(F("\n\tFirmware version......: "));
   Serial.print(DEV_FW_VERSION);
-  Serial.print("\n\tSensor list...........: ");
+  Serial.print(F("\n\tSensor list...........: "));
   Serial.print(DEV_SENSOR_LIST);
-  Serial.print("\n\tActuator list.........: ");
+  Serial.print(F("\n\tActuator list.........: "));
   Serial.print(DEV_ACTUATOR_LIST);
   Serial.flush();
 }
