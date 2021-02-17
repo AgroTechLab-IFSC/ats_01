@@ -10,6 +10,7 @@
             "includePath": [
                 "/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/include",
                 "/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/src",
+                "/home/robson/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                 "/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/.pio/libdeps/pro16MHzatmega328/BH1750/src",
                 "/home/robson/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                 "/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/.pio/libdeps/pro16MHzatmega328/DHT sensor library",
@@ -19,7 +20,6 @@
                 "/home/robson/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "/home/robson/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                 "/home/robson/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
-                "/home/robson/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                 "/home/robson/.platformio/packages/tool-unity",
                 ""
             ],
@@ -28,6 +28,7 @@
                 "path": [
                     "/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/include",
                     "/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/src",
+                    "/home/robson/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                     "/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/.pio/libdeps/pro16MHzatmega328/BH1750/src",
                     "/home/robson/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                     "/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/.pio/libdeps/pro16MHzatmega328/DHT sensor library",
@@ -37,7 +38,6 @@
                     "/home/robson/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "/home/robson/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                     "/home/robson/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
-                    "/home/robson/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
                     "/home/robson/.platformio/packages/tool-unity",
                     ""
                 ]

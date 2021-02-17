@@ -183,32 +183,32 @@ void setup() {
 
   // If SERIAL_DEBUG enabled, configure serial port for debug
   #if (SERIAL_DEBUG == true)
-    Serial.begin(SERIAL_BAUDRATE);
-    while (!Serial) {;}
+    debugSerial.begin(SERIAL_BAUDRATE);
+    while (!debugSerial) {;}
     printInitInfo();
   #endif
 
   // Setup and initialize DHT22 sensor
   pinMode(DHT_PIN, INPUT);  
   #if (SERIAL_DEBUG == true)
-    Serial.print(F("\n\tInitializing DHT sensor... "));
-    Serial.flush();
+    debugSerial.print(F("\n\tInitializing DHT sensor... "));
+    debugSerial.flush();
   #endif
   dht.begin();
   #if (SERIAL_DEBUG == true)
-    Serial.print(F("[OK]"));
-    Serial.flush();
+    debugSerial.print(F("[OK]"));
+    debugSerial.flush();
   #endif
 
   // Initialize light sensor
   if (SERIAL_DEBUG) {
-    Serial.print(F("\n\tInitializing light sensor... "));
-    Serial.flush();
+    debugSerial.print(F("\n\tInitializing light sensor... "));
+    debugSerial.flush();
   }
   lightSensor.begin();
   if (SERIAL_DEBUG) {
-    Serial.print(F("[OK]"));
-    Serial.flush();
+    debugSerial.print(F("[OK]"));
+    debugSerial.flush();
   }
 
   // Setup LoRa module configuration
@@ -257,7 +257,7 @@ void loop() {
   digitalWrite(LED_BUILTIN, HIGH);
 
   #if (SERIAL_DEBUG == true)
-    Serial.print(F("\nReading sensors...."));
+    debugSerial.print(F("\nReading sensors...."));
   #endif
 
   // Get air temperature
@@ -289,23 +289,23 @@ void loop() {
  * 
  */
 void printInitInfo() {
-  Serial.print(F("\n##########################################\n"));
-  Serial.print(F("#                ATS-01                  #\n"));
-  Serial.print(F("#   AgroTech Station 01 (Tiny version)   #\n"));
-  Serial.print(F("#        AgroTechLab (IFSC/Lages)        #\n"));  
-  Serial.print(F("##########################################\n"));
-  Serial.print(F("Starting ATS-01..."));
-  Serial.print(F("\n\tMCU device board......: "));
-  Serial.print(DEV_TYPE);
-  Serial.print(F("\n\tCommunication device..: "));
-  Serial.print(DEV_CONN);
-  Serial.print(F("\n\tFirmware version......: "));
-  Serial.print(DEV_FW_VERSION);
-  Serial.print(F("\n\tSensor list...........: "));
-  Serial.print(DEV_SENSOR_LIST);
-  Serial.print(F("\n\tActuator list.........: "));
-  Serial.print(DEV_ACTUATOR_LIST);
-  Serial.flush();
+  debugSerial.print(F("\n##########################################\n"));
+  debugSerial.print(F("#                ATS-01                  #\n"));
+  debugSerial.print(F("#   AgroTech Station 01 (Tiny version)   #\n"));
+  debugSerial.print(F("#        AgroTechLab (IFSC/Lages)        #\n"));  
+  debugSerial.print(F("##########################################\n"));
+  debugSerial.print(F("Starting ATS-01..."));
+  debugSerial.print(F("\n\tMCU device board......: "));
+  debugSerial.print(DEV_TYPE);
+  debugSerial.print(F("\n\tCommunication device..: "));
+  debugSerial.print(DEV_CONN);
+  debugSerial.print(F("\n\tFirmware version......: "));
+  debugSerial.print(DEV_FW_VERSION);
+  debugSerial.print(F("\n\tSensor list...........: "));
+  debugSerial.print(DEV_SENSOR_LIST);
+  debugSerial.print(F("\n\tActuator list.........: "));
+  debugSerial.print(DEV_ACTUATOR_LIST);
+  debugSerial.flush();
 }
 #endif
 
@@ -329,9 +329,9 @@ float getBatteryVoltage() {
   battery_voltage = vout / (voltageSensor_R2/(voltageSensor_R1+voltageSensor_R2));
   
   #if (SERIAL_DEBUG == true)
-    Serial.print(F("\n\tBattery voltage (in V): "));
-    Serial.print(battery_voltage);
-    Serial.flush();
+    debugSerial.print(F("\n\tBattery voltage (in V): "));
+    debugSerial.print(battery_voltage);
+    debugSerial.flush();
   #endif
 
   return battery_voltage;
@@ -349,8 +349,8 @@ uint8_t getUVIndex() {
   uint8_t uv_index = UINT8_MAX;
   if (isnan(uv_value)) {
     #if (SERIAL_DEBUG == true)
-      Serial.print(F("\n\tError reading UV radiation index!!!"));
-      Serial.flush();
+      debugSerial.print(F("\n\tError reading UV radiation index!!!"));
+      debugSerial.flush();
     #endif
   } else {
     if (uv_value > 1170) {
@@ -364,11 +364,11 @@ uint8_t getUVIndex() {
       }
     }
     #if (SERIAL_DEBUG == true)
-      Serial.print(F("\n\tUV radiation (in UV index): "));
-      Serial.print(uv_value);
-      Serial.print(" => ");
-      Serial.print(uv_index);
-      Serial.flush();
+      debugSerial.print(F("\n\tUV radiation (in UV index): "));
+      debugSerial.print(uv_value);
+      debugSerial.print(" => ");
+      debugSerial.print(uv_index);
+      debugSerial.flush();
     #endif    
   }
   return uv_index;
@@ -384,14 +384,14 @@ uint16_t getLightInLux() {
   if ((isnan(lux)) || (lux < 0.0f) || (lux > 65535) ) {
     lux = UINT16_MAX;
     if (SERIAL_DEBUG == true) {
-      Serial.print(F("\n\tError reading light level!!!"));
-      Serial.flush();
+      debugSerial.print(F("\n\tError reading light level!!!"));
+      debugSerial.flush();
     }  
   } else {    
     if (SERIAL_DEBUG == true) {
-      Serial.print(F("\n\tLuminosity (in LUX): "));  
-      Serial.print(lux);        
-      Serial.flush();
+      debugSerial.print(F("\n\tLuminosity (in LUX): "));  
+      debugSerial.print(lux);        
+      debugSerial.flush();
     }
   }
   return lux;
@@ -411,15 +411,15 @@ float getAirTemperatureInC() {
       (dht_sensor_event.temperature > 80.0f))) {
       air_temperature = __FLT_MAX__;
     #if (SERIAL_DEBUG == true)
-      Serial.print(F("\n\tError reading air temperature!!!"));
-      Serial.flush();
+      debugSerial.print(F("\n\tError reading air temperature!!!"));
+      debugSerial.flush();
     #endif  
   } else {
     air_temperature = dht_sensor_event.temperature;
     #if (SERIAL_DEBUG == true)
-        Serial.print(F("\n\tAir temperature (in oC): "));
-        Serial.print(air_temperature);        
-        Serial.flush();
+        debugSerial.print(F("\n\tAir temperature (in oC): "));
+        debugSerial.print(air_temperature);        
+        debugSerial.flush();
     #endif
   }
   return air_temperature;
@@ -440,15 +440,15 @@ float getAirHumidity() {
     (dht_sensor_event.relative_humidity > 100.0f)) {
     air_umidity = __FLT_MAX__;      
     #if (SERIAL_DEBUG == true)
-      Serial.print(F("\n\tError reading air humidity!!!"));
-      Serial.flush();
+      debugSerial.print(F("\n\tError reading air humidity!!!"));
+      debugSerial.flush();
     #endif  
   } else {
     air_umidity = dht_sensor_event.relative_humidity;
     #if (SERIAL_DEBUG == true)
-      Serial.print(F("\n\tAir humidity (in %): "));
-      Serial.print(air_umidity);      
-      Serial.flush();
+      debugSerial.print(F("\n\tAir humidity (in %): "));
+      debugSerial.print(air_umidity);      
+      debugSerial.flush();
     #endif
   }
 

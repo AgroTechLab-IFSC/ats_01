@@ -20,6 +20,7 @@
 #include <DHT_U.h>
 #include <Adafruit_Sensor.h>
 #include <BH1750.h>
+#include <SoftwareSerial.h>
 #include "AgroTechLab_LoRa.h"
 
 /**
@@ -70,6 +71,18 @@
     * Define the serial baudrate.
     */
     #define SERIAL_BAUDRATE             115200
+
+    /**
+    * \def SERIAL_RX_PIN 
+    * Define the serial RX pin.
+    */
+    #define SERIAL_RX_PIN               2
+
+    /**
+    * \def SERIAL_TX_PIN 
+    * Define the serial TX pin.
+    */
+    #define SERIAL_TX_PIN               3
 #endif
 
 /**
@@ -134,6 +147,9 @@ sensor_t dht_sensor;                        /**< Global variable to access DHT s
 sensors_event_t dht_sensor_event;           /**< Global variable to access DHT sensor internal events. */
 LoRa lora;                                  /**< Global variable to access LoRaWAN module. */
 LoRaConfig_t loraCfg;                       /**< Global variable with LoRa configurations. */
+#if (SERIAL_DEBUG == true)
+    SoftwareSerial debugSerial(SERIAL_RX_PIN, SERIAL_TX_PIN);   /**< Software Serial for DEBUG. */
+#endif
 
 /*********************************************
  *             SYSTEM CONSTANTS
