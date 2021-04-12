@@ -1,8 +1,9 @@
 <map id="/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/include/ats_01.h" name="/home/robson/GDrive/workspaces/agrotechlab/agrotech4all/ats_01/include/ats_01.h">
-<area shape="rect" id="node1" title="AgroTechStation 01 general library." alt="" coords="141,5,346,76"/>
+<area shape="rect" id="node1" title="AgroTechStation 01 general library." alt="" coords="209,5,414,76"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,124,84,151"/>
 <area shape="rect" id="node3" title=" " alt="" coords="109,124,245,151"/>
 <area shape="rect" id="node4" title=" " alt="" coords="269,124,354,151"/>
-<area shape="rect" id="node5" href="$d5/d90/_agro_tech_lab___lo_ra_8h.html" title="AgroTechLab LoRa library." alt="" coords="378,124,533,151"/>
-<area shape="rect" id="node6" title=" " alt="" coords="413,199,497,225"/>
+<area shape="rect" id="node5" title=" " alt="" coords="378,124,506,151"/>
+<area shape="rect" id="node6" href="$d5/d90/_agro_tech_lab___lo_ra_8h.html" title="AgroTechLab LoRa library." alt="" coords="530,124,685,151"/>
+<area shape="rect" id="node7" title=" " alt="" coords="565,199,649,225"/>
 </map>

@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['sensorsdata_81',['sensorsData',['../dd/df2/ats__01_8h.html#ad17493228b6498770edeec50053d9187',1,'ats_01.h']]],
-  ['serial_5fbaudrate_82',['SERIAL_BAUDRATE',['../dd/df2/ats__01_8h.html#a89f82a9d44beaa52b00c7245a50a105c',1,'ats_01.h']]],
-  ['serial_5fdebug_83',['SERIAL_DEBUG',['../dd/df2/ats__01_8h.html#ac237b6870305a0bf8f89e76f65caf732',1,'ats_01.h']]],
-  ['setup_84',['setup',['../da/dc9/ats__01_8cpp.html#a1d04139db3a5ad5713ecbd14d97da879',1,'ats_01.cpp']]],
-  ['station_5fsensors_5ft_85',['STATION_SENSORS_T',['../dd/d69/struct_s_t_a_t_i_o_n___s_e_n_s_o_r_s___t.html',1,'']]]
+  ['repeat_82',['repeat',['../d5/d0e/struct_lo_ra_config__t.html#afae58ce933e553895ce7d28f2b7ea65f',1,'LoRaConfig_t::repeat()'],['../dd/df2/ats__01_8h.html#ac799f2bc3599d636f3cf5e24d1f2f08d',1,'repeat():&#160;ats_01.h']]],
+  ['retry_83',['retry',['../d5/d0e/struct_lo_ra_config__t.html#aefc5e636346db22073cad38d1aaf1d76',1,'LoRaConfig_t::retry()'],['../dd/df2/ats__01_8h.html#a801898c0d68e861b97c29b6a17865ccb',1,'retry():&#160;ats_01.h']]],
+  ['rhf0m003_84',['RHF0M003',['../de/d24/rhf0m003_page.html',1,'index']]],
+  ['rxwin2_5fdr_85',['rxwin2_dr',['../d5/d0e/struct_lo_ra_config__t.html#a24d6cd699fabb4738235652a78a38c46',1,'LoRaConfig_t']]],
+  ['rxwin2_5ffreq_86',['rxwin2_freq',['../d5/d0e/struct_lo_ra_config__t.html#a81d4b1176868e1bbc9020fc60723eff5',1,'LoRaConfig_t::rxwin2_freq()'],['../dd/df2/ats__01_8h.html#abf39929e64ce9d8e19cf6d0d8310cd01',1,'rxwin2_freq():&#160;ats_01.h']]]
 ];

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['voltage_5fsensor_5fpin_91',['VOLTAGE_SENSOR_PIN',['../dd/df2/ats__01_8h.html#ad861d99cf8fe5c6111703dbe78489652',1,'ats_01.h']]],
-  ['voltagesensor_5fr1_92',['voltageSensor_R1',['../dd/df2/ats__01_8h.html#a6b6cec62f9359f549b1eb911a9c22fea',1,'ats_01.h']]],
-  ['voltagesensor_5fr2_93',['voltageSensor_R2',['../dd/df2/ats__01_8h.html#a2f47b34825177290805ae8a8979c086e',1,'ats_01.h']]]
+  ['uplink_5fdr_95',['uplink_dr',['../d5/d0e/struct_lo_ra_config__t.html#a3a9a22ef8c499deff7efc228510399f9',1,'LoRaConfig_t']]],
+  ['us915_96',['US915',['../d5/d90/_agro_tech_lab___lo_ra_8h.html#a37cbf7993f51edfa97f24d8b4ceb5729a66f874e22bed4f1f56b72a405e88a14d',1,'AgroTechLab_LoRa.h']]],
+  ['uvm_2d30a_97',['UVM-30A',['../d8/db7/uvm30a_page.html',1,'index']]],
+  ['uvm30a_5fpin_98',['UVM30A_PIN',['../dd/df2/ats__01_8h.html#a196e80a62abcd072bebefa93b3a90627',1,'ats_01.h']]]
 ];

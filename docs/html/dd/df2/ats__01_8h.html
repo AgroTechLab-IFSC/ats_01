@@ -82,18 +82,20 @@ $(function() {
 <div class="textblock"><code>#include &lt;DHT_U.h&gt;</code><br />
 <code>#include &lt;Adafruit_Sensor.h&gt;</code><br />
 <code>#include &lt;BH1750.h&gt;</code><br />
+<code>#include &lt;SoftwareSerial.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d90/_agro_tech_lab___lo_ra_8h_source.html">AgroTechLab_LoRa.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for ats_01.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/dc8/ats__01_8h__incl.png" border="0" usemap="#_2home_2robson_2_g_drive_2workspaces_2agrotechlab_2agrotech4all_2ats__01_2include_2ats__01_8h" alt=""/></div>
 <map name="_2home_2robson_2_g_drive_2workspaces_2agrotechlab_2agrotech4all_2ats__01_2include_2ats__01_8h" id="_2home_2robson_2_g_drive_2workspaces_2agrotechlab_2agrotech4all_2ats__01_2include_2ats__01_8h">
-<area shape="rect" title="AgroTechStation 01 general library." alt="" coords="141,5,346,76"/>
+<area shape="rect" title="AgroTechStation 01 general library." alt="" coords="209,5,414,76"/>
 <area shape="rect" title=" " alt="" coords="5,124,84,151"/>
 <area shape="rect" title=" " alt="" coords="109,124,245,151"/>
 <area shape="rect" title=" " alt="" coords="269,124,354,151"/>
-<area shape="rect" href="../../d5/d90/_agro_tech_lab___lo_ra_8h.html" title="AgroTechLab LoRa library." alt="" coords="378,124,533,151"/>
-<area shape="rect" title=" " alt="" coords="413,199,497,225"/>
+<area shape="rect" title=" " alt="" coords="378,124,506,151"/>
+<area shape="rect" href="../../d5/d90/_agro_tech_lab___lo_ra_8h.html" title="AgroTechLab LoRa library." alt="" coords="530,124,685,151"/>
+<area shape="rect" title=" " alt="" coords="565,199,649,225"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -119,7 +121,7 @@ Macros</h2></td></tr>
 <tr class="separator:a5454b7a913f969a1aa7eacaf500fb44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96e040e575cd3ee76ba354505c5e3865"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a96e040e575cd3ee76ba354505c5e3865">DEV_CONN</a>&#160;&#160;&#160;&quot;LoRa - RHF0M003&quot;</td></tr>
 <tr class="separator:a96e040e575cd3ee76ba354505c5e3865"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab950358caa433fd20e51b46ffaccef45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#ab950358caa433fd20e51b46ffaccef45">DEV_FW_VERSION</a>&#160;&#160;&#160;&quot;1.0.0&quot;</td></tr>
+<tr class="memitem:ab950358caa433fd20e51b46ffaccef45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#ab950358caa433fd20e51b46ffaccef45">DEV_FW_VERSION</a>&#160;&#160;&#160;&quot;0.1.0&quot;</td></tr>
 <tr class="separator:ab950358caa433fd20e51b46ffaccef45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf51b827840c0770cf968a1306bbf5c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#acf51b827840c0770cf968a1306bbf5c4">DEV_SENSOR_LIST</a>&#160;&#160;&#160;&quot;DHT22, GY30, UVM30A&quot;</td></tr>
 <tr class="separator:acf51b827840c0770cf968a1306bbf5c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,6 +133,14 @@ Macros</h2></td></tr>
 <tr class="separator:a28a34af268d6c54f1a3b1425b605b2a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89f82a9d44beaa52b00c7245a50a105c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a89f82a9d44beaa52b00c7245a50a105c">SERIAL_BAUDRATE</a>&#160;&#160;&#160;115200</td></tr>
 <tr class="separator:a89f82a9d44beaa52b00c7245a50a105c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a6914464503da0a1c45a3a4eb118d5c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a3a6914464503da0a1c45a3a4eb118d5c">SERIAL_RX_PIN</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a3a6914464503da0a1c45a3a4eb118d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b63f989c01a9f7b11336d514d37cbce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a5b63f989c01a9f7b11336d514d37cbce">SERIAL_TX_PIN</a>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:a5b63f989c01a9f7b11336d514d37cbce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33c2769a47c46cbc92ae216eef82a1ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a33c2769a47c46cbc92ae216eef82a1ea">LORA_RX_PIN</a>&#160;&#160;&#160;6</td></tr>
+<tr class="separator:a33c2769a47c46cbc92ae216eef82a1ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28bc4ea842360124e6528bd35f7bda83"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a28bc4ea842360124e6528bd35f7bda83">LORA_TX_PIN</a>&#160;&#160;&#160;7</td></tr>
+<tr class="separator:a28bc4ea842360124e6528bd35f7bda83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfae246a91df54e807874aa8680beccb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#abfae246a91df54e807874aa8680beccb">DHT_TYPE</a>&#160;&#160;&#160;DHT22</td></tr>
 <tr class="separator:abfae246a91df54e807874aa8680beccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a661d236dd49f3aef3a2cf46cf6a1405e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a661d236dd49f3aef3a2cf46cf6a1405e">DHT_PIN</a>&#160;&#160;&#160;9</td></tr>
@@ -163,6 +173,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="separator:a3e3d1f45fd0fd5560277e5157f4751c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5cb70b46cacf3f7103ccec8acdc6526"><td class="memItemLeft" align="right" valign="top">DHT_Unified&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#ab5cb70b46cacf3f7103ccec8acdc6526">dht</a> (<a class="el" href="../../dd/df2/ats__01_8h.html#a661d236dd49f3aef3a2cf46cf6a1405e">DHT_PIN</a>, <a class="el" href="../../dd/df2/ats__01_8h.html#abfae246a91df54e807874aa8680beccb">DHT_TYPE</a>)</td></tr>
 <tr class="separator:ab5cb70b46cacf3f7103ccec8acdc6526"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb6f44ad9a29e27cb3b641c547d847a5"><td class="memItemLeft" align="right" valign="top">SoftwareSerial&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#acb6f44ad9a29e27cb3b641c547d847a5">loraSerial</a> (<a class="el" href="../../dd/df2/ats__01_8h.html#a33c2769a47c46cbc92ae216eef82a1ea">LORA_RX_PIN</a>, <a class="el" href="../../dd/df2/ats__01_8h.html#a28bc4ea842360124e6528bd35f7bda83">LORA_TX_PIN</a>)</td></tr>
+<tr class="separator:acb6f44ad9a29e27cb3b641c547d847a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cad5bdd7e5d715356f2f2a7bca3f3cf"><td class="memItemLeft" align="right" valign="top">SoftwareSerial&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df2/ats__01_8h.html#a5cad5bdd7e5d715356f2f2a7bca3f3cf">debugSerial</a> (<a class="el" href="../../dd/df2/ats__01_8h.html#a3a6914464503da0a1c45a3a4eb118d5c">SERIAL_RX_PIN</a>, <a class="el" href="../../dd/df2/ats__01_8h.html#a5b63f989c01a9f7b11336d514d37cbce">SERIAL_TX_PIN</a>)</td></tr>
+<tr class="separator:a5cad5bdd7e5d715356f2f2a7bca3f3cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -211,7 +225,7 @@ const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>uvIndexValu
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>AgroTechStation 01 general library. </p>
 <dl class="section author"><dt>Author</dt><dd>Robson Costa (<a href="#" onclick="location.href='mai'+'lto:'+'rob'+'so'+'n.c'+'os'+'ta@'+'if'+'sc.'+'ed'+'u.b'+'r'; return false;">robso<span style="display: none;">.nosp@m.</span>n.co<span style="display: none;">.nosp@m.</span>sta@i<span style="display: none;">.nosp@m.</span>fsc.<span style="display: none;">.nosp@m.</span>edu.b<span style="display: none;">.nosp@m.</span>r</a>) </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>1.0.0 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1.0 </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>2021-02-15 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2021-02-16</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2021 - Robson Costa<br  />
@@ -255,7 +269,7 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DEV_FW_VERSION&#160;&#160;&#160;&quot;1.0.0&quot;</td>
+          <td class="memname">#define DEV_FW_VERSION&#160;&#160;&#160;&quot;0.1.0&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -338,6 +352,36 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 
 </div>
 </div>
+<a id="a33c2769a47c46cbc92ae216eef82a1ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33c2769a47c46cbc92ae216eef82a1ea">&#9670;&nbsp;</a></span>LORA_RX_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LORA_RX_PIN&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Define the <a class="el" href="../../d2/dbf/class_lo_ra.html">LoRa</a> module RX pin. </p>
+
+</div>
+</div>
+<a id="a28bc4ea842360124e6528bd35f7bda83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28bc4ea842360124e6528bd35f7bda83">&#9670;&nbsp;</a></span>LORA_TX_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LORA_TX_PIN&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Define the <a class="el" href="../../d2/dbf/class_lo_ra.html">LoRa</a> module TX pin. </p>
+
+</div>
+</div>
 <a id="a89f82a9d44beaa52b00c7245a50a105c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89f82a9d44beaa52b00c7245a50a105c">&#9670;&nbsp;</a></span>SERIAL_BAUDRATE</h2>
 
@@ -365,6 +409,36 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
       </table>
 </div><div class="memdoc">
 <p>Enable/disable derial debug. </p>
+
+</div>
+</div>
+<a id="a3a6914464503da0a1c45a3a4eb118d5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a6914464503da0a1c45a3a4eb118d5c">&#9670;&nbsp;</a></span>SERIAL_RX_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SERIAL_RX_PIN&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Define the serial RX pin. </p>
+
+</div>
+</div>
+<a id="a5b63f989c01a9f7b11336d514d37cbce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b63f989c01a9f7b11336d514d37cbce">&#9670;&nbsp;</a></span>SERIAL_TX_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SERIAL_TX_PIN&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Define the serial TX pin. </p>
 
 </div>
 </div>
@@ -399,6 +473,35 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a5cad5bdd7e5d715356f2f2a7bca3f3cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cad5bdd7e5d715356f2f2a7bca3f3cf">&#9670;&nbsp;</a></span>debugSerial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SoftwareSerial debugSerial </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df2/ats__01_8h.html#a3a6914464503da0a1c45a3a4eb118d5c">SERIAL_RX_PIN</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/df2/ats__01_8h.html#a5b63f989c01a9f7b11336d514d37cbce">SERIAL_TX_PIN</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Software Serial for DEBUG. </p>
+
+</div>
+</div>
 <a id="ab5cb70b46cacf3f7103ccec8acdc6526"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab5cb70b46cacf3f7103ccec8acdc6526">&#9670;&nbsp;</a></span>dht()</h2>
 
@@ -525,6 +628,35 @@ Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Int
 
 <p>Get UV index from UVM30A sensor. </p>
 <dl class="section return"><dt>Returns</dt><dd>UV index. </dd></dl>
+
+</div>
+</div>
+<a id="acb6f44ad9a29e27cb3b641c547d847a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb6f44ad9a29e27cb3b641c547d847a5">&#9670;&nbsp;</a></span>loraSerial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SoftwareSerial loraSerial </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/df2/ats__01_8h.html#a33c2769a47c46cbc92ae216eef82a1ea">LORA_RX_PIN</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/df2/ats__01_8h.html#a28bc4ea842360124e6528bd35f7bda83">LORA_TX_PIN</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Software Serial for <a class="el" href="../../d2/dbf/class_lo_ra.html">LoRa</a> module communication. </p>
 
 </div>
 </div>

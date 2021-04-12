@@ -2,7 +2,7 @@
  * @file ats_01.h
  * @author Robson Costa (robson.costa@ifsc.edu.br)
  * @brief AgroTechStation 01 general library.
- * @version 1.0.0
+ * @version 0.1.0
  * @since 2021-02-15 
  * @date 2021-02-16
  * 
@@ -39,7 +39,7 @@
  * \def DEV_FW_VERSION 
  * Firmware version.
  */
-#define DEV_FW_VERSION                  "1.0.0"
+#define DEV_FW_VERSION                  "0.1.0"
 
 /**
  * \def DEV_SENSOR_LIST 
@@ -76,14 +76,26 @@
     * \def SERIAL_RX_PIN 
     * Define the serial RX pin.
     */
-    #define SERIAL_RX_PIN               2
+    #define SERIAL_RX_PIN               4
 
     /**
     * \def SERIAL_TX_PIN 
     * Define the serial TX pin.
     */
-    #define SERIAL_TX_PIN               3
+    #define SERIAL_TX_PIN               5
 #endif
+
+/**
+ * \def LORA_RX_PIN 
+ * Define the LoRa module RX pin.
+ */
+#define LORA_RX_PIN                   6
+
+/**
+ * \def LORA_TX_PIN 
+ * Define the LoRa module TX pin.
+ */
+#define LORA_TX_PIN                   7
 
 /**
  * \def DHT_TYPE 
@@ -140,13 +152,14 @@ float getBatteryVoltage();
 /*********************************************
  *             SYSTEM VARIABLES
  ********************************************/
-STATION_SENSORS_T sensorsData;              /**< Global variable with sensor values. */
-DHT_Unified dht(DHT_PIN, DHT_TYPE);        /**< Global variable to access DHT sensor (DHT22). */
-BH1750 lightSensor;                         /**< Global variable to access light sensor (GY30). */
-sensor_t dht_sensor;                        /**< Global variable to access DHT sensor internal values. */
-sensors_event_t dht_sensor_event;           /**< Global variable to access DHT sensor internal events. */
-LoRa lora;                                  /**< Global variable to access LoRaWAN module. */
-LoRaConfig_t loraCfg;                       /**< Global variable with LoRa configurations. */
+STATION_SENSORS_T sensorsData;                          /**< Global variable with sensor values. */
+DHT_Unified dht(DHT_PIN, DHT_TYPE);                     /**< Global variable to access DHT sensor (DHT22). */
+BH1750 lightSensor;                                     /**< Global variable to access light sensor (GY30). */
+sensor_t dht_sensor;                                    /**< Global variable to access DHT sensor internal values. */
+sensors_event_t dht_sensor_event;                       /**< Global variable to access DHT sensor internal events. */
+LoRa lora;                                              /**< Global variable to access LoRaWAN module. */
+LoRaConfig_t loraCfg;                                   /**< Global variable with LoRa configurations. */
+SoftwareSerial loraSerial(LORA_RX_PIN, LORA_TX_PIN);    /**< Software Serial for LoRa module communication. */
 #if (SERIAL_DEBUG == true)
     SoftwareSerial debugSerial(SERIAL_RX_PIN, SERIAL_TX_PIN);   /**< Software Serial for DEBUG. */
 #endif

@@ -13,6 +13,16 @@
  * \li \subpage dht22_page - air temperature and air humidity sensor
  * \li \subpage gy302_page - lighting level sensor module
  * \li \subpage uvm30a_page - ultraviolet (UV) radiation index module
+ * \li \subpage ds18b20_page - soil temperature
+ * \li \subpage hd38_page - soil moisture
+ * <br> 
+ * | Device  | Op. Voltage | Interface | Default Current                          | Response Time | Op. Temp.      |
+ * | :----:  | :----:      | :----:    | :----:                                   | :----:        | :----:         |
+ * | DHT-22  | 3V -- 5V    | UART      | 2.5 mA <run_mode> / 0.15 mA <sleep_mode> | 2 sec.        | -40°C -- 85°C  |
+ * | GY-302  | 3V -- 5V    | I2C       | 0.18 mA                                  | 180 ms        | -40°C -- 85°C  |
+ * | UVM-30A | 3V -- 5V    | Analog    | 0.06 mA                                  | < 0.5 sec.    | -25°C -- 85°C  |
+ * | DS18B20 | 3V -- 5V    | 1-Wire    | --                                       | < 750 ms      | -55°C -- 125°C |
+ * | HD-38   | 3V -- 12V   | Analog    | < 20 mA                                  | --            | --             |
  */
 
 /**
@@ -151,11 +161,71 @@
  * ![UVM-30A pinout](../uvm30_pinout.png)
  */ 
 
+/**
+ * \page ds18b20_page DS18B20
+ * This UV Sensor is used for detecting the intensity of incident ultraviolet (UV) radiation. 
+ * This form of electromagnetic radiation has shorter wavelengths than visible radiation. 
+ * This module is based on the sensor UVM-30A, which has a wide spectral range of 200nm–370nm. 
+ * The module outputs electrical signal which varies with the UV intensity.
+ *  
+ * Key features are listed below, hardware details can be found into [datasheet](../datasheets/UVM30A.pdf):
+ * - Power supply 5V;
+ * - Analogic interface;
+ * 
+ * UV index table:\n
+ * Tension (mV) | Analog | UV Index
+ * :----:|:----:| :----:
+ * < 50 | < 10 | 0
+ * 227 | 46 | 1
+ * 318 | 65 | 2
+ * 408 | 83 | 3
+ * 503 | 103 | 4
+ * 606 | 124 | 5
+ * 696 | 142 | 6
+ * 795 | 162 | 7
+ * 881 | 180 | 8
+ * 976 | 200 | 9
+ * 1079 | 221 | 10
+ * 1170+ | 240+ | 11+
+ * 
+ * ![UVM-30A pinout](../uvm30_pinout.png)
+ */ 
+
+/**
+ * \page hd38_page HD-38
+ * This UV Sensor is used for detecting the intensity of incident ultraviolet (UV) radiation. 
+ * This form of electromagnetic radiation has shorter wavelengths than visible radiation. 
+ * This module is based on the sensor UVM-30A, which has a wide spectral range of 200nm–370nm. 
+ * The module outputs electrical signal which varies with the UV intensity.
+ *  
+ * Key features are listed below, hardware details can be found into [datasheet](../datasheets/UVM30A.pdf):
+ * - Power supply 5V;
+ * - Analogic interface;
+ * 
+ * UV index table:\n
+ * Tension (mV) | Analog | UV Index
+ * :----:|:----:| :----:
+ * < 50 | < 10 | 0
+ * 227 | 46 | 1
+ * 318 | 65 | 2
+ * 408 | 83 | 3
+ * 503 | 103 | 4
+ * 606 | 124 | 5
+ * 696 | 142 | 6
+ * 795 | 162 | 7
+ * 881 | 180 | 8
+ * 976 | 200 | 9
+ * 1079 | 221 | 10
+ * 1170+ | 240+ | 11+
+ * 
+ * ![UVM-30A pinout](../uvm30_pinout.png)
+ */ 
+
 /** 
  * @file ats_01.cpp
  * @author Robson Costa (robson.costa@ifsc.edu.br)
  * @brief Project main file.
- * @version 1.0.0
+ * @version 0.1.0
  * @since 2021-02-15 
  * @date 2021-02-16
  * 
@@ -205,7 +275,7 @@ void setup() {
     debugSerial.print(F("\n\tInitializing light sensor... "));
     debugSerial.flush();
   }
-  lightSensor.begin();
+  // lightSensor.begin();
   if (SERIAL_DEBUG) {
     debugSerial.print(F("[OK]"));
     debugSerial.flush();
@@ -253,30 +323,41 @@ void setup() {
  * @brief Loop function executed cyclically based on the value of \ref system_period.
  */
 void loop() {
+  #if (SERIAL_DEBUG == true)
+    debugSerial.print(F("\nReading sensors...."));
+    
+    // Get time at start of process
+    unsigned long start_time = millis();
+  #endif  
+
   // Power on builtin LED during reading process
   digitalWrite(LED_BUILTIN, HIGH);
 
-  #if (SERIAL_DEBUG == true)
-    debugSerial.print(F("\nReading sensors...."));
-  #endif
-
-  // Get air temperature
+  // // Get air temperature
   sensorsData.air_temperature = getAirTemperatureInC();
 
-  // Get air humidity
+  // // Get air humidity
   sensorsData.air_humidity = getAirHumidity();
 
-  // Get light in LUX
+  // // Get light in LUX
   sensorsData.light = getLightInLux();
 
-  // Get UV index
+  // // Get UV index
   sensorsData.uv_index = getUVIndex();
 
-  // Get battery voltage
-  sensorsData.battery_voltage = getBatteryVoltage();
+  // // Get battery voltage
+  sensorsData.battery_voltage = getBatteryVoltage();  
 
   // Power off builtin LED after reading process
   digitalWrite(LED_BUILTIN, LOW);
+
+  #if (SERIAL_DEBUG == true)
+    // Get time at end of process
+    unsigned long end_time = millis();
+
+    debugSerial.print(F("\nProcess time (in ms): "));
+    debugSerial.print(end_time - start_time);
+  #endif  
 
   // Sleep 5 seconds
   delay(5000);

@@ -2,7 +2,7 @@
  * @file AgroTechLab_LoRa.h
  * @author Robson Costa (robson.costa@ifsc.edu.br)
  * @brief AgroTechLab LoRa library.
- * @version 1.0.0
+ * @version 0.1.0
  * @since 2021-02-15 
  * @date 2021-02-16
  * 

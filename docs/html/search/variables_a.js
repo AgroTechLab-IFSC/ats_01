@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uplink_5fdr_137',['uplink_dr',['../d5/d0e/struct_lo_ra_config__t.html#a3a9a22ef8c499deff7efc228510399f9',1,'LoRaConfig_t']]]
+  ['uplink_5fdr_147',['uplink_dr',['../d5/d0e/struct_lo_ra_config__t.html#a3a9a22ef8c499deff7efc228510399f9',1,'LoRaConfig_t']]]
 ];
